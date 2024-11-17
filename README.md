@@ -26,6 +26,3 @@ Este projeto otimiza rotas de entregas para minimizar custos e garantir prazos. 
 - `dados_teste.py`: Dados de teste.
 
 ---
-
-**Autor:** Seu Nome  
-**Contato:** seu.email@dominio.com
