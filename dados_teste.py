@@ -1,31 +1,47 @@
 from classes import Grafo, Caminhao
+import random
 
 def criar_dados_teste():
     # Centros de distribuição
     centros = ['Belém', 'Recife', 'São Paulo', 'Curitiba']
 
-    # Entregas (destino, carga, prazo)
+    # Destinos (definidos manualmente)
+    destinos = [f"Destino{i}" for i in range(1, 21)]  # 20 destinos possíveis
+
+    # Gerar 100 entregas aleatórias (destino, carga, prazo)
     entregas = [
-        ('Destino1', 5, 2), 
-        ('Destino2', 8, 3),
-        ('Destino3', 3, 1),
-        ('Destino4', 7, 4),
-        ('Destino5', 2, 2)
+        (random.choice(destinos), random.randint(1, 10), random.randint(1, 5))
+        for _ in range(100)
     ]
 
-    # Caminhões
     caminhões = [
-        Caminhao(1, 10, 8),
-        Caminhao(2, 15, 8)
+        Caminhao(1, 15, 10),
+        Caminhao(2, 20, 10),
+        Caminhao(3, 15, 10),
+        Caminhao(4, 20, 10),
+        Caminhao(5, 15, 10),
+        Caminhao(6, 20, 10),
+        Caminhao(7, 15, 10),
+        Caminhao(8, 20, 10),
+        Caminhao(9, 15, 10),
+        Caminhao(10, 20, 10),
+        
     ]
 
     # Grafo de distâncias
     grafo = Grafo()
-    grafo.adicionar_aresta('Belém', 'Destino1', 4)
-    grafo.adicionar_aresta('Belém', 'Destino2', 8)
-    grafo.adicionar_aresta('Recife', 'Destino3', 6)
-    grafo.adicionar_aresta('Recife', 'Destino4', 3)
-    grafo.adicionar_aresta('São Paulo', 'Destino5', 2)
-    grafo.adicionar_aresta('Curitiba', 'Destino5', 5)
+    # Conectando centros de distribuição a destinos com distâncias aleatórias
+    for centro in centros:
+        for destino in destinos:
+            distancia = random.randint(2, 15)
+            grafo.adicionar_aresta(centro, destino, distancia)
+
+    # Adicionar algumas conexões entre destinos para mais rotas
+    for _ in range(50):  # 50 conexões extras entre destinos
+        origem = random.choice(destinos)
+        destino = random.choice(destinos)
+        if origem != destino:
+            distancia = random.randint(1, 10)
+            grafo.adicionar_aresta(origem, destino, distancia)
 
     return centros, entregas, caminhões, grafo
